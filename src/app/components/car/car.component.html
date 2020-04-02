@@ -1,0 +1,68 @@
+<div class="container alert">
+    <h4>Выберите автомобиль</h4>
+    <button class="btn btn-danger" (click)="selectCar('bmw')">BMW</button>
+    <button class="btn btn-success" (click)="selectCar('audi')">Audi</button>
+    <button class="btn btn-info" (click)="selectCar('mercedes')">Mercedes</button>
+    <div><br></div>
+
+    <h5><mark class="alert alert-{{currentButtonStyle}}">
+        Автомобиль</mark> {{name}} <small>{{model}}</small></h5>
+    <div><br></div>
+
+    <div class="alert alert-{{currentButtonStyle}}">
+        Характеристики автомобиля:
+        <ul>
+            <li>Скорость: <strong>{{speed}}</strong></li>
+            <li>Цвет кузова: <strong>{{colors.car}}</strong></li>
+            <li>Цвет салона: <strong>{{colors.salon}}</strong></li>
+            <li>Цвет дисков: <strong>{{colors.wheels}}</strong></li>
+        </ul>
+    </div>
+
+    <h5>Возможности автомобиля</h5>
+    <div class="alert alert-{{currentButtonStyle}}">
+        <ul>
+            <li *ngFor="let opt of options[optionsIndex]">
+                {{opt}} <button class="btn btn-sm btn-warning" (click)="deleteOpt(opt)">x</button></li>
+        </ul>
+    </div>
+
+    <button class="btn btn-{{currentButtonStyle}}" 
+    (click)="openEditForm()">
+    {{isEditFormOpen?'Скрыть Редактирование':'Редактировать'}}</button>
+    <div><br></div>
+    
+    <form *ngIf=isEditFormOpen>
+        <h5>Редактирование автомобиля</h5>
+        <div class="form-group alert alert-warning">
+            <input type="text" placeholder="Марка автомобиля"
+            class="form-control" [(ngModel)]="name" name="name"><br>
+            <input type="text" placeholder="Модель автомобиля"
+            class="form-control" [(ngModel)]="model" name="model"><br>
+            <input type="text" placeholder="Скорость"
+            class="form-control" [(ngModel)]="speed" name="speed"><br>
+            <input type="text" placeholder="Цвет кузова"
+            class="form-control" [(ngModel)]="colors.car" name="colors.car"><br>
+            <input type="text" placeholder="Цвет салона"
+            class="form-control" [(ngModel)]="colors.salon" name="colors.salon"><br>
+            <input type="text" placeholder="Цвет дисков"
+            class="form-control" [(ngModel)]="colors.wheels" name="colors.wheels">
+        </div>
+    </form>
+
+    <button class="btn btn-{{currentButtonStyle}}"
+    (click)="openAddOptForm()">
+    {{isAddOptFormOpen?'Скрыть Добавление':'Добавить возможность'}}</button>
+    <div><br></div>
+
+    <form *ngIf=isAddOptFormOpen (submit)="addOpt(option.value)">
+        <h5>Добавление новой возможности</h5>
+        <div class="form-group alert alert-warning">
+            <input type="text" id="option" placeholder="Новая возможность"
+            class="form-control" #option>
+            <br>
+            <button type="submit" class="btn btn-outline-success">Добавить</button>
+        </div>
+    </form>
+
+</div>
